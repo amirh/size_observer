@@ -11,9 +11,9 @@ typedef void SizeCallback(Size size);
 
 class SizeObserver extends SingleChildRenderObjectWidget {
   const SizeObserver({
-    Key key,
-    Widget child,
-    @required this.onSized,
+    Key? key,
+    Widget? child,
+    required this.onSized,
   }) : super(key: key, child: child);
 
   final SizeCallback onSized;
@@ -28,20 +28,18 @@ class SizeObserver extends SingleChildRenderObjectWidget {
 
 class _RenderSizeObserver extends RenderProxyBox {
   _RenderSizeObserver({
-    RenderBox child,
-    @required this.onLayoutChangedCallback,
-  }) : assert(onLayoutChangedCallback != null),
-        super(child);
+    RenderBox? child,
+    required this.onLayoutChangedCallback,
+  }) : super(child);
 
   final SizeCallback onLayoutChangedCallback;
 
-  Size _oldSize;
+  Size? _oldSize;
 
   @override
   void performLayout() {
     super.performLayout();
-    if (size != _oldSize)
-      onLayoutChangedCallback(size);
+    if (size != _oldSize) onLayoutChangedCallback(size);
     _oldSize = size;
   }
 }
